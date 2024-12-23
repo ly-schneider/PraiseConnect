@@ -3,9 +3,12 @@
 import { cookies } from "next/headers";
 import * as jose from "jose";
 import Now from "@/components/utils/TimeNow";
-import {JWTPayload} from "jose";
+import { PayloadDTO } from "@/model/PayloadDTO";
+import { JWTPayload } from "jose";
 
-export async function decrypt(bearerToken: string | null): Promise<JWTPayload | null> {
+export async function decrypt(
+  bearerToken: string | null
+): Promise<JWTPayload | null> {
   if (!bearerToken) return null;
   const token = bearerToken.split(" ")[1];
 
@@ -29,7 +32,7 @@ export async function decrypt(bearerToken: string | null): Promise<JWTPayload | 
   }
 }
 
-export async function encrypt(payload: JWTPayload): Promise<string> {
+export async function encrypt(payload: PayloadDTO): Promise<string> {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
   const token = await new jose.SignJWT(payload)
@@ -55,7 +58,10 @@ export async function logout(): Promise<void> {
   cookieStore.set("session", "", { expires: new Date(0) });
 }
 
-export async function getSession(): Promise<{ accessToken: string; user: JWTPayload } | null> {
+export async function getSession(): Promise<{
+  accessToken: string;
+  user: JWTPayload;
+} | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get("session")?.value;
   if (!token) return null;

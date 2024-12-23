@@ -1,7 +1,5 @@
 "use client";
 
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
 import { saveSession } from "@/lib/Session";
@@ -9,6 +7,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "./ui/checkbox";
 import BackendUrl from "./utils/BackendUrl";
 import { CheckedState } from "@radix-ui/react-checkbox";
+import Spinner from "./utils/Spinner";
+import { AccountDTO } from "@/model/Account";
 
 interface RegigsterFormErrors {
   email: string;
@@ -61,18 +61,22 @@ export default function RegisterForm() {
         "Bitte akzeptiere die Nutzungsbedingungen und Datenschutzrichtlinien.";
     }
 
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      setLoading(false);
-      return;
-    }
+    Object.keys(errors).forEach((key) => {
+      if (errors[key as keyof RegigsterFormErrors]) {
+        setLoading(false);
+        setErrors(errors);
+        return;
+      }
+    });
 
     try {
-      const body = {
+      const body: AccountDTO = {
         email,
         password,
         terms,
       };
+
+      console.log(body)
 
       const res = await fetch(`${BackendUrl()}/accounts`, {
         method: "POST",
@@ -180,9 +184,7 @@ export default function RegisterForm() {
           className="btn btn-attention w-full mt-4"
           type="submit"
         >
-          {loading && (
-            <FontAwesomeIcon icon={faSpinner} spin className="me-2" />
-          )}{" "}
+          <Spinner className={"fill-background transition-default " + (loading ? "mr-3" : "hidden")} />
           Registrieren
         </button>
         <p className="text mt-4">
