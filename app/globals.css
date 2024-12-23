@@ -1,21 +1,59 @@
+@import url("https://use.typekit.net/hvt7naw.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --text: #1C1D1D;
+    --background: #F7F3F5;
+    --primary: #F07DDC;
+    --primary-slanted: #F8C1EE;
+    --muted: #636363;
+    --success: #1bcb21;
+    --error: #f44336;
+    --popover: 0, 0%, 96%;
+    --mencken: "mencken-std-head", sans-serif;
+    --merriweather: "merriweather", serif;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  background: linear-gradient(to bottom right, #FCE8F8 0%, var(--background) 100%);
+}
+
+@layer base {
+  html,
+  body {
+    @apply flex flex-col min-h-screen text-text scroll-smooth m-0 p-0 overflow-x-hidden font-merriweather;
+  }
+}
+
+@layer components {
+  .transition-default {
+    @apply transition-all duration-300;
+  }
+  .title {
+    @apply text-text font-mencken text-[1.49rem] font-extrabold;
+  }
+  .text {
+    @apply text-text font-merriweather text-sm font-normal;
+  }
+  .btn {
+    @apply text px-7 py-3 rounded-full flex flex-row justify-center items-center transition-default;
+  }
+  .btn-primary {
+    @apply bg-transparent border-2 border-text hover:text-background hover:bg-text;
+  }
+  .btn-attention {
+    @apply bg-text text-background border-2 border-text;
+  }
+  .input {
+    @apply px-4 py-2 rounded-full border-2 border-text bg-transparent text placeholder:text-muted placeholder:text;
+  }
 }

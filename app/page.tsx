@@ -1,101 +1,121 @@
-import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { faCircleXmark, faComments } from "@fortawesome/free-regular-svg-icons";
+import { faShieldHalved, faSliders } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="flex flex-col mb-32">
+      <header className="flex flex-col items-center justify-center mt-4">
+        <img
+          src="/images/Logo-PraiseConnect.png"
+          alt="PraiseConnect Logo"
+          className="h-10"
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <h1 className="title text-center mt-6">
+          Verbinde dich mit Menschen, die <span className="italic font-bold text-primary">deine</span>{" "}
+          Interessen teilen!
+        </h1>
+        <h3 className="text mt-3 text-center text-sm px-4">
+          Egal ob Bouldern, Worship-Sessions oder etwas ganz anderes.
+          Unkompliziert, direkt, authentisch.
+        </h3>
+        <Link href="/registrieren" className="btn btn-primary mt-6">
+          Jetzt starten!
+        </Link>
+      </header>
+      <section className="flex flex-col mt-12">
+        <h2 className="title">
+          Features, die dich{" "}
+          <span className="italic font-bold text-primary">begeistern</span>{" "}
+          werden
+        </h2>
+        <Accordion type="single" collapsible className="mt-2">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <div className="flex items-center gap-3">
+                <div className="bg-primarySlanted w-8 h-8 rounded-full flex items-center justify-center text-text">
+                  <FontAwesomeIcon
+                    icon={faComments}
+                    className="text-text z-10 text-sm"
+                  />
+                </div>
+                <p className="text">Eine Antwort zum Kontakt</p>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              Ein Klick genügt, um in Kontakt zu treten. Deine Antwort auf einen
+              Post startet sofort einen privaten Chat – einfach, direkt,
+              persönlich.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              <div className="flex items-center gap-3">
+                <div className="bg-primarySlanted w-8 h-8 rounded-full flex items-center justify-center text-text">
+                  <FontAwesomeIcon
+                    icon={faSliders}
+                    className="text-text z-10 text-sm"
+                  />
+                </div>
+                <p className="text">Nur das, was dich interessiert</p>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              Mit den Filterleisten findest du genau die Aktivitäten, die du
+              suchst – ob sportlich, kreativ oder entspannt.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              <div className="flex items-center gap-3">
+                <div className="bg-primarySlanted w-8 h-8 rounded-full flex items-center justify-center text-text">
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    className="text-text z-10 text-sm"
+                  />
+                </div>
+                <p className="text">Kein Schnickschnack</p>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              Kein Schnickschnack, keine Ablenkung – nur das, was zählt. Diese
+              App macht es einfach, sich zu vernetzen und aktiv zu werden.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              <div className="flex items-center gap-3">
+                <div className="bg-primarySlanted w-8 h-8 rounded-full flex items-center justify-center text-text">
+                  <FontAwesomeIcon
+                    icon={faShieldHalved}
+                    className="text-text z-10 text-sm"
+                  />
+                </div>
+                <p className="text">Privatsphäre</p>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              Privatsphäre steht bei uns an erster Stelle. Dein Name und Alter
+              reichen, um dich zu verbinden – alles Weitere bleibt privat.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+      <section className="flex flex-col items-center mt-8">
+        <h1 className="title text-center">
+          Auf was wartest <span className="italic font-bold text-primary">du</span>{" "}noch?
+        </h1>
+        <Link href="/registrieren" className="btn btn-primary mt-4">
+          Finde neue Freunde!
+        </Link>
+      </section>
     </div>
   );
 }
