@@ -35,9 +35,9 @@ export async function encrypt(payload: JWTPayload): Promise<string> {
   const token = await new jose.SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("10d")
-    .setIssuer("secretgift.app")
-    .setAudience("secretgift.app")
+    .setExpirationTime("7d")
+    .setIssuer("praiseconnect.ch")
+    .setAudience("praiseconnect.ch")
     .sign(secret);
 
   return token;

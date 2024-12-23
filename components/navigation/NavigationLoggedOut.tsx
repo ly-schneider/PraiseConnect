@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Footer from "../Footer";
 
 export default function NavigationLoggedOut() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function NavigationLoggedOut() {
             </Link>
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

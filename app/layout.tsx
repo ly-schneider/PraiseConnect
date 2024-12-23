@@ -4,6 +4,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Container from "@/components/Container";
 import React from "react";
 import NavigationLoggedOut from "@/components/navigation/NavigationLoggedOut";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title:
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="de">
       <body>
         <GoogleAnalytics />
-        <Container>{children}</Container>
+        <Container>
+          {children}
+        </Container>
         <NavigationLoggedOut />
       </body>
     </html>
