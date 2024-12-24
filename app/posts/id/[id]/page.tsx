@@ -1,10 +1,43 @@
-import AntwortErstellenForm from "@/components/AntwortErstellenForm";
-import BackButton from "@/components/BackButton";
-import Post from "@/components/Post";
-import Spinner from "@/components/utils/Spinner";
+import { headers } from "next/headers";
 import { getSession } from "@/lib/Session";
 import { PostDTO } from "@/model/Post";
-import { headers } from "next/headers";
+import BackButton from "@/components/BackButton";
+import Post from "@/components/Post";
+import AntwortErstellenForm from "@/components/AntwortErstellenForm";
+import { Suspense } from "react";
+import SkeletonPostDetail from "@/components/skeletons/SkeletonPostDetail";
+
+async function fetchPostData(id: string): Promise<PostDTO | null> {
+  const headersList = await headers();
+  const hostname = headersList.get("x-forwarded-host");
+  const protocol = headersList.get("x-forwarded-proto");
+  const url = `${protocol}://${hostname}`;
+
+  const session = await getSession();
+
+  if (!session) return null;
+
+  const res = await fetch(`${url}/api/posts/id/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  });
+
+  if (!res.ok) {
+    console.error("Fehler beim Laden der Posts");
+    return null;
+  }
+
+  const data = await res.json();
+
+  if (data.success) {
+    return data.data;
+  } else {
+    console.error("Fehler beim Laden der Posts");
+    return null;
+  }
+}
 
 export default async function PostDetailPage({
   params,
@@ -13,48 +46,32 @@ export default async function PostDetailPage({
 }) {
   const { id } = await params;
 
-  const headersList = await headers();
-  const hostname = headersList.get("x-forwarded-host");
-  const protocol = headersList.get("x-forwarded-proto");
-  const url = `${protocol}://${hostname}`;
-
-  const session = await getSession();
-
-  let post: PostDTO | null = null;
-
-  if (session) {
-    const res = await fetch(`${url}/api/posts/id/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    });
-
-    if (!res.ok || res.status !== 200) {
-      console.error("Fehler beim Laden der Posts");
-      return;
-    }
-
-    const data = await res.json();
-
-    if (data.success) {
-      post = data.data;
-    } else {
-      console.error("Fehler beim Laden der Posts");
-    }
-  }
+  const postPromise = fetchPostData(id);
 
   return (
     <div className="flex flex-col mb-32 mt-2">
       <BackButton />
-      {!post ? (
-        <div className="w-full flex justify-center">
-          <Spinner className="fill-text w-8 h-8" />
-        </div>
-      ) : (
-        <Post post={post} type="single" />
-      )}
-      <AntwortErstellenForm session={session} post={post} />
+      <Suspense fallback={<SkeletonPostDetail />}>
+        {/* Await the post data */}
+        <PostContent postPromise={postPromise} />
+      </Suspense>
     </div>
+  );
+}
+
+async function PostContent({ postPromise }: { postPromise: Promise<PostDTO | null> }) {
+  const post = await postPromise;
+
+  if (!post) {
+    return <div className="w-full flex justify-center">Fehler beim Laden des Posts.</div>;
+  }
+
+  const session = await getSession();
+
+  return (
+    <>
+      <Post post={post} type="single" />
+      <AntwortErstellenForm session={session} post={post} />
+    </>
   );
 }

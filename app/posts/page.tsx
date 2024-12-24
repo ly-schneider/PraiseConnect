@@ -1,3 +1,4 @@
+import EntdeckenButton from "@/components/EntdeckenButton";
 import FilterActivities from "@/components/FilterActivites";
 import PostsDisplay from "@/components/PostsDisplay";
 import {
@@ -75,10 +76,7 @@ export default async function EntdeckenPage() {
             </div>
           </SheetContent>
         </Sheet>
-        <Link href="/posts/erstellen" className="btn btn-attention py-2 px-5">
-          <FontAwesomeIcon icon={faPlus} className="me-2 fill-background" />
-          Erstellen
-        </Link>
+        <EntdeckenButton />
       </header>
       <div className="mt-2">
         <FilterActivities style="small" />
