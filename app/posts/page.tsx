@@ -10,10 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { getSession } from "@/lib/Session";
 import { PostDTO } from "@/model/Post";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { headers } from "next/headers";
-import Link from "next/link";
 
 export default async function EntdeckenPage() {
   const headersList = await headers();
