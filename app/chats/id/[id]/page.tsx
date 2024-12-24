@@ -38,7 +38,11 @@ export default async function ChatDetailPage({
 
     if (!res.ok || res.status !== 200) {
       console.error("Fehler beim Laden der Chats");
-      return;
+      return (
+        <div className="w-full flex justify-center mt-12">
+          <p className="text text-center">Fehler beim Laden der Chats</p>
+        </div>
+      );
     }
 
     const data = await res.json();

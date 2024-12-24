@@ -87,8 +87,8 @@ export default async function EntdeckenPage() {
         <FilterActivities style="small" />
       </div>
       {posts.length === 0 ? (
-        <div className="w-full flex justify-center">
-          <Spinner className="fill-text w-8 h-8" />
+        <div className="w-full flex justify-center mt-10">
+          <p className="text text-muted text-center">Keine Posts vorhanden</p>
         </div>
       ) : (
         <PostsDisplay posts={posts} />

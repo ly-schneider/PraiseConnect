@@ -39,7 +39,7 @@ export default async function ChatsPage() {
   return (
     <div className="flex flex-col mb-32 mt-2">
       {chats.length === 0 ? (
-        <p className="text text-muted text-center mt-8">Keine Chats</p>
+        <p className="text text-muted text-center mt-10">Keine Chats vorhanden</p>
       ) : (
         chats.map((chat) => (
           <Link key={chat._id} href={`/chats/id/${chat._id}`}>
