@@ -23,14 +23,10 @@ body {
   }
 }
 
-html, body {
-  background: linear-gradient(to bottom right, #FCE8F8 0%, var(--background) 100%);
-}
-
 @layer base {
   html,
   body {
-    @apply flex flex-col min-h-screen text-text scroll-smooth m-0 p-0 overflow-x-hidden font-merriweather;
+    @apply flex flex-col min-h-screen text-text scroll-smooth m-0 p-0 overflow-x-hidden font-merriweather bg-background;
   }
 }
 

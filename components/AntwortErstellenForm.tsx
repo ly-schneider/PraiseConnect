@@ -71,7 +71,7 @@ export default function AntwortErstellenForm({
         postId: post?._id,
       };
 
-      const res = await fetch(`/api/chat`, {
+      const res = await fetch(`/api/chats`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -6,7 +6,7 @@ import { getSession } from "@/lib/Session";
 import { PostDTO } from "@/model/Post";
 import { headers } from "next/headers";
 
-export default async function PostErstellenPage({
+export default async function PostDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;

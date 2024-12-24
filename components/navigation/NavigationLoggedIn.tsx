@@ -23,9 +23,9 @@ export default function NavigationLoggedIn({
         <div className="text bg-transparent rounded-full border-2 border-text mx-6">
           <div className="flex justify-between items-center w-full">
             <Link
-              href="/entdecken"
+              href="/posts"
               className={`text w-full text-center py-3 px-7 ${
-                isActive("/entdecken") ? "bg-text text-background" : ""
+                isActive("/posts") ? "bg-text text-background" : ""
               } rounded-full transition-default hover:bg-text hover:text-background cursor-pointer`}
             >
               Entdecken

@@ -5,6 +5,36 @@ import Now from "@/components/utils/TimeNow";
 import Post from "@/model/Post";
 import { decrypt } from "@/lib/Session";
 import Chat from "@/model/Chat";
+import Account from "@/model/Account";
+
+export async function GET(request: Request) {
+  await DBConnect();
+
+  const jwtToken = request.headers.get("authorization");
+  const payload = await decrypt(jwtToken);
+
+  if (!payload) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
+  try {
+    const chats = await Chat.find({ participants: payload._id })
+      .populate("participants", "name birthdate", Account)
+      .populate("messages.sender", "name birthdate", Account)
+      .exec();
+
+    return NextResponse.json({ success: true, data: chats }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: "Failed to fetch chats" },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(request: Request) {
   await DBConnect();
@@ -19,7 +49,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const reqBody = (await request.json());
+  const reqBody = await request.json();
 
   if (!reqBody.content) {
     return NextResponse.json(
@@ -59,10 +89,13 @@ export async function POST(request: Request) {
       participants: { $all: [payload._id, post.account] },
     });
 
+    const postId = reqBody.postId;
+    const postUrl = `/posts/id/${postId}`;
+
     if (chat) {
       chat.messages.push({
         sender: payload._id,
-        content: reqBody.content,
+        content: `${reqBody.content}\n\n[Beitrag](${postUrl})`,
         createdAt: Now(),
       });
 
@@ -76,7 +109,7 @@ export async function POST(request: Request) {
         messages: [
           {
             sender: payload._id,
-            content: reqBody.content,
+            content: `${reqBody.content}\n\n[Beitrag](${postUrl})`,
             createdAt: Now(),
           },
         ],
@@ -89,10 +122,7 @@ export async function POST(request: Request) {
     await session.commitTransaction();
     session.endSession();
 
-    return NextResponse.json(
-      { success: true },
-      { status: 201 }
-    );
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     console.error(error);
     await session.abortTransaction();

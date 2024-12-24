@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "./lib/Session";
 
 const blacklistPathsUnauthenticated: string[] = ["/entdecken"];
-const blacklistPathsUnauthenticatedRegex = /^\/(?!profil|posts).*$/;
+const blacklistPathsUnauthenticatedRegex = /^\/(?!chats|post).*$/;
 const blacklistPathsAuthenticated: string[] = ["/login", "/registrieren"];
 
 export async function middleware(

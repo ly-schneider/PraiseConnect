@@ -25,7 +25,7 @@ export default function PostsDisplay({ posts }: { posts: PostDTO[] }) {
       {filteredPosts.map((post) => (
         <Link
           key={post._id}
-          href={`/post/id/${post._id}`}
+          href={`/posts/id/${post._id}`}
         >
           <Post post={post} type="list" />
         </Link>

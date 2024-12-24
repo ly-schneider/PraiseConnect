@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
@@ -13,8 +13,12 @@ const FilterActivitiesContext = createContext<FilterActivitiesContextType | unde
 
 export const FilterActivitiesProvider = ({ children }: { children: ReactNode }) => {
   const [selectedActivities, setSelectedActivities] = useState<string[]>(() => {
-    const storedActivities = window.localStorage.getItem("filterActivities");
-    return storedActivities ? storedActivities.split(",").filter(Boolean) : [];
+    // Ensure this code runs only on the client
+    if (typeof window !== "undefined") {
+      const storedActivities = window.localStorage.getItem("filterActivities");
+      return storedActivities ? storedActivities.split(",").filter(Boolean) : [];
+    }
+    return []; // Default state for server-side rendering
   });
 
   const toggleActivity = (activity: string) => {
@@ -23,13 +27,16 @@ export const FilterActivitiesProvider = ({ children }: { children: ReactNode }) 
         ? prevSelected.filter((item) => item !== activity)
         : [...prevSelected, activity];
 
-      try {
-        window.localStorage.setItem(
-          "filterActivities",
-          updatedActivities.join(",")
-        );
-      } catch (err) {
-        console.error("Error updating localStorage:", err);
+      // Safely access localStorage on the client side
+      if (typeof window !== "undefined") {
+        try {
+          window.localStorage.setItem(
+            "filterActivities",
+            updatedActivities.join(",")
+          );
+        } catch (err) {
+          console.error("Error updating localStorage:", err);
+        }
       }
 
       return updatedActivities;

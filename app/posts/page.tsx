@@ -78,7 +78,7 @@ export default async function EntdeckenPage() {
             </div>
           </SheetContent>
         </Sheet>
-        <Link href="/post/erstellen" className="btn btn-attention py-2 px-5">
+        <Link href="/posts/erstellen" className="btn btn-attention py-2 px-5">
           <FontAwesomeIcon icon={faPlus} className="me-2 fill-background" />
           Erstellen
         </Link>

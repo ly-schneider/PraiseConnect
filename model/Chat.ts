@@ -31,4 +31,16 @@ const ChatSchema = new mongoose.Schema({
   },
 });
 
+export type ChatDTO = {
+  _id?: string;
+  participants?: { _id: string; name: string; birthdate: Date }[];
+  messages?: {
+    _id?: string;
+    sender?: { _id: string; name: string; birthdate: Date };
+    content?: string;
+    createdAt?: Date;
+  }[];
+  readBy?: Map<string, Date>;
+}
+
 export default mongoose.models.Chat || mongoose.model("Chat", ChatSchema);

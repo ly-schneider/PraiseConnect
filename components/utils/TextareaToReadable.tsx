@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function TextareaToReadable(text: string | undefined) {
@@ -9,4 +10,8 @@ export default function TextareaToReadable(text: string | undefined) {
         <br/>
       </React.Fragment>
   ));
+}
+
+export function TextareaToReadableRemoveLineBreaks(text: string | undefined) {
+  return text?.replace(/\n/g, " ");
 }

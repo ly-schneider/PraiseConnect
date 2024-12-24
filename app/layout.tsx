@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "PraiseConnect - Verbinde dich mit Menschen, die deine Interessen teilen!",
   other: {
-    "theme-color": "#FCE8F8",
+    "theme-color": "#F7F3F5",
   },
 };
 

@@ -92,7 +92,7 @@ export default function PostErstellenForm({
 
       if (data.success) {
         setLoading(false);
-        router.push(`/post/id/${data.data._id}`);
+        router.push(`/posts/id/${data.data._id}`);
       } else {
         throw new Error();
       }
