@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function TextareaToReadable(text: string) {
+export default function TextareaToReadable(text: string | undefined) {
   if (!text) return null;
 
   return text.split("\n").map((line, index) => (

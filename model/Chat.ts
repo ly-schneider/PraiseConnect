@@ -19,13 +19,16 @@ const ChatSchema = new mongoose.Schema({
         type: String,
         required: [true, "Inhalt darf nicht leer sein"],
       },
-      timestamp: {
+      createdAt: {
         type: Date,
         default: Date.now,
-        required: true,
       },
     },
   ],
+  readBy: {
+    type: Map,
+    of: Date, // Stores the last read timestamp for each participant
+  },
 });
 
 export default mongoose.models.Chat || mongoose.model("Chat", ChatSchema);

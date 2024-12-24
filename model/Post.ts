@@ -5,13 +5,12 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: [true, "Content darf nicht leer sein"],
   },
-  category: [
+  activities: [
     {
       type: String,
-      required: [true, "Kategorie darf nicht leer sein"],
     },
   ],
-  accountId: {
+  account: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Account",
     required: true,
@@ -26,5 +25,13 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.models.Post ||
-  mongoose.model("Post", PostSchema);
+export type PostDTO = {
+  _id?: string;
+  content?: string;
+  activities?: string[];
+  account?: { _id: string; name: string; birthdate: Date };
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export default mongoose.models.Post || mongoose.model("Post", PostSchema);

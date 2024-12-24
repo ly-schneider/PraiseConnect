@@ -5,7 +5,6 @@ import { useState } from "react";
 import { saveSession } from "@/lib/Session";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "./ui/checkbox";
-import BackendUrl from "./utils/BackendUrl";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import Spinner from "./utils/Spinner";
 import { AccountDTO } from "@/model/Account";
@@ -13,6 +12,8 @@ import { AccountDTO } from "@/model/Account";
 interface RegigsterFormErrors {
   email: string;
   password: string;
+  name: string;
+  birthdate: string;
   terms: string;
   submit: string;
 }
@@ -20,6 +21,8 @@ interface RegigsterFormErrors {
 const initialErrors: RegigsterFormErrors = {
   email: "",
   password: "",
+  name: "",
+  birthdate: "",
   terms: "",
   submit: "",
 };
@@ -30,12 +33,16 @@ export default function RegisterForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [birthdate, setBirthdate] = useState(new Date("2000-01-01").toISOString().split("T")[0]);
   const [terms, setTerms] = useState<CheckedState>(false);
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RegigsterFormErrors>({
     email: "",
     password: "",
+    name: "",
+    birthdate: "",
     terms: "",
     submit: "",
   });
@@ -56,6 +63,14 @@ export default function RegisterForm() {
       errors.password = "Bitte gib dein Passwort ein.";
     }
 
+    if (!name) {
+      errors.name = "Bitte gib deinen Namen ein.";
+    }
+
+    if (!birthdate) {
+      errors.birthdate = "Bitte gib dein Geburtsdatum ein.";
+    }
+
     if (!terms) {
       errors.terms =
         "Bitte akzeptiere die Nutzungsbedingungen und Datenschutzrichtlinien.";
@@ -73,12 +88,14 @@ export default function RegisterForm() {
       const body: AccountDTO = {
         email,
         password,
+        name,
+        birthdate: new Date(birthdate),
         terms,
       };
 
       console.log(body)
 
-      const res = await fetch(`${BackendUrl()}/accounts`, {
+      const res = await fetch(`/api/accounts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +134,7 @@ export default function RegisterForm() {
   return (
     <div className="mt-6">
       {errors.submit && (
-        <div className="rounded-full bg-error px-4 py-2.5 text text-center mb-4">
+        <div className="rounded-[20px] bg-error px-4 py-2.5 text text-center mb-4">
           {errors.submit}
         </div>
       )}
@@ -156,6 +173,41 @@ export default function RegisterForm() {
             {errors.password && (
               <span className="text text-error">
                 {errors.password}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="name" className="text">
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="input"
+              placeholder="Max"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {errors.name && (
+              <span className="text text-error">
+                {errors.name}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="birthdate" className="text">
+              Geburtsdatum:
+            </label>
+            <input
+              type="date"
+              id="birthdate"
+              className="input"
+              value={birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
+            />
+            {errors.birthdate && (
+              <span className="text text-error">
+                {errors.birthdate}
               </span>
             )}
           </div>

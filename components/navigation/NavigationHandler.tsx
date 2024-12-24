@@ -1,6 +1,6 @@
 import { getSession } from "@/lib/Session";
-import NavigationLoggedIn from "./NavigationLoggedIn";
 import NavigationLoggedOut from "./NavigationLoggedOut";
+import NavigationLoggedIn from "./NavigationLoggedIn";
 
 export default async function NavigationHandler() {
   const session = await getSession();

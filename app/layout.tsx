@@ -3,8 +3,8 @@ import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Container from "@/components/Container";
 import React from "react";
-import NavigationLoggedOut from "@/components/navigation/NavigationLoggedOut";
-import Footer from "@/components/Footer";
+import NavigationHandler from "@/components/navigation/NavigationHandler";
+import { FilterActivitiesProvider } from "@/components/FilterActivitiesContext";
 
 export const metadata: Metadata = {
   title:
@@ -24,9 +24,11 @@ export default function RootLayout({
       <body>
         <GoogleAnalytics />
         <Container>
-          {children}
+          <FilterActivitiesProvider>
+            {children}
+          </FilterActivitiesProvider>
         </Container>
-        <NavigationLoggedOut />
+        <NavigationHandler />
       </body>
     </html>
   );

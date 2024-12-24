@@ -1,4 +1,4 @@
-enum Activities {
+export enum Activities {
   PARKOUR_ZONE = 'Parkour Zone',
   FUSSBALL = 'Fussball',
   BASKETBALL = 'Basketball',

@@ -26,6 +26,20 @@ export async function POST(request: Request) {
     );
   }
 
+  if (!reqBody.name) {
+    return NextResponse.json(
+      { success: false, message: "Name is required" },
+      { status: 400 }
+    );
+  }
+
+  if (!reqBody.birthdate) {
+    return NextResponse.json(
+      { success: false, message: "Birthdate is required" },
+      { status: 400 }
+    );
+  }
+
   if (!reqBody.terms) {
     return NextResponse.json(
       { success: false, message: "Terms is required" },
@@ -56,6 +70,8 @@ export async function POST(request: Request) {
     const account = new Account({
       email: reqBody.email,
       password: hashedPassword,
+      name: reqBody.name,
+      birthdate: reqBody.birthdate,
       terms: reqBody.terms,
       createdAt: Now(),
       updatedAt: Now(),

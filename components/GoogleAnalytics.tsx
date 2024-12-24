@@ -22,7 +22,7 @@ export default function GoogleAnalytics() {
   return (
     <>
       <div
-        className={`fixed bottom-[4.5rem] z-50 w-full flex flex-col justify-center items-center ${
+        className={`fixed bottom-[7rem] z-50 w-full flex flex-col justify-center items-center ${
           showCookieConsent ? "block" : "hidden"
         }`}
       >

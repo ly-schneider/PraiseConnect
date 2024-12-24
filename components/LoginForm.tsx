@@ -1,14 +1,11 @@
 "use client";
 
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
 import { saveSession } from "@/lib/Session";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Checkbox } from "./ui/checkbox";
 import BackendUrl from "./utils/BackendUrl";
-import { CheckedState } from "@radix-ui/react-checkbox";
+import Spinner from "./utils/Spinner";
 
 interface LoginFormErrors {
   email: string;
@@ -36,7 +33,7 @@ export default function LoginForm() {
     submit: "",
   });
 
-  async function handleRegistration(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
     setLoading(true);
@@ -52,11 +49,13 @@ export default function LoginForm() {
       errors.password = "Bitte gib dein Passwort ein.";
     }
 
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      setLoading(false);
-      return;
-    }
+    Object.keys(errors).forEach((key) => {
+      if (errors[key as keyof LoginFormErrors]) {
+        setLoading(false);
+        setErrors(errors);
+        return;
+      }
+    });
 
     try {
       const body = {
@@ -64,7 +63,7 @@ export default function LoginForm() {
         password,
       };
 
-      const res = await fetch(`${BackendUrl()}/auth/login`, {
+      const res = await fetch(`/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,6 +76,8 @@ export default function LoginForm() {
 
       const data = await res.json();
 
+      console.log(data);
+
       if (data.success) {
         setLoading(false);
 
@@ -87,15 +88,23 @@ export default function LoginForm() {
 
         router.push("/entdecken");
       } else {
-        throw new Error();
+        throw new Error(data.type);
       }
     } catch (error) {
+      setLoading(false);
+
+      if (error.message === "wrong-credentials") {
+        setErrors({
+          ...errors,
+          submit: "Die E-Mail Adresse oder das Passwort ist falsch.",
+        });
+        return;
+      }
+
       setErrors({
         ...errors,
         submit: "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
       });
-
-      setLoading(false);
       return;
     }
   }
@@ -103,11 +112,11 @@ export default function LoginForm() {
   return (
     <div className="mt-6">
       {errors.submit && (
-        <div className="rounded-full bg-error px-4 py-2.5 text text-center mb-4">
+        <div className="rounded-[20px] bg-error px-4 py-2.5 text text-center mb-4">
           {errors.submit}
         </div>
       )}
-      <form onSubmit={handleRegistration}>
+      <form onSubmit={handleLogin}>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text">
@@ -151,9 +160,7 @@ export default function LoginForm() {
           </div>
         </div>
         <button className="btn btn-attention w-full mt-4" type="submit">
-          {loading && (
-            <FontAwesomeIcon icon={faSpinner} spin className="me-2" />
-          )}{" "}
+          <Spinner className={"fill-background transition-default " + (loading ? "mr-3" : "hidden")} />
           Login
         </button>
         <p className="text mt-4">
