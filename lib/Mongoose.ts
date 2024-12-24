@@ -1,8 +1,10 @@
 import mongoose, { Connection } from "mongoose";
 
+/* eslint-disable no-var */
 declare global {
   var mongoose: { conn: Connection | null; promise: Promise<Connection> | null } | undefined;
 }
+/* eslint-enable no-var */
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

@@ -93,8 +93,6 @@ export default function RegisterForm() {
         terms,
       };
 
-      console.log(body)
-
       const res = await fetch(`/api/accounts`, {
         method: "POST",
         headers: {
@@ -116,16 +114,16 @@ export default function RegisterForm() {
           return;
         }
 
-        router.push("/entdecken");
+        router.push("/posts");
       } else {
         throw new Error();
       }
     } catch (error) {
+      console.error("Error creating account:", error);
       setErrors({
         ...errors,
         submit: "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
       });
-
       setLoading(false);
       return;
     }

@@ -2,9 +2,6 @@
 
 import { useActivities } from "./FilterActivitiesContext";
 import { PostDTO } from "@/model/Post";
-import CalcBirthdate from "./utils/CalcBirthdate";
-import CalcCreationDate from "./utils/CalcCreationDate";
-import TextareaToReadable from "./utils/TextareaToReadable";
 import Link from "next/link";
 import Post from "./Post";
 

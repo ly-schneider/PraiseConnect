@@ -6,7 +6,7 @@ export function GetParticipantThatIsNotSelf(chat: ChatDTO, accountId: string) {
   );
 }
 
-export function GetLatestMessage(chat: ChatDTO, accountId: string) {
+export function GetLatestMessage(chat: ChatDTO) {
   if (!chat.messages || chat.messages.length === 0) {
     return null;
   }
@@ -24,6 +24,8 @@ export function ChatIsUnread(chat: ChatDTO, accountId: string): boolean {
 
   // Check if the user has a `readBy` timestamp and if it is before the latest message's timestamp
   const lastReadTimestamp = chat.readBy?.get(accountId);
+
+  if (latestMessage.createdAt === undefined) return false;
 
   // If there's no `lastReadTimestamp` or it's before the latest message, it's unread
   return !lastReadTimestamp || new Date(lastReadTimestamp) < latestMessage.createdAt;

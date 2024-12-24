@@ -8,7 +8,7 @@ export default function DatenschutzrichtlinienPage() {
         <div>
           <h2 className="title text-2xl">1. Einleitung</h2>
           <p className="text mt-4">
-            PraiseConnect (nachfolgend "wir" oder "uns") nimmt den Schutz Ihrer
+            PraiseConnect (nachfolgend &quot;wir&quot; oder &quot;uns&quot;) nimmt den Schutz Ihrer
             persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen
             Daten vertraulich und entsprechend den gesetzlichen
             Datenschutzvorschriften der Schweiz sowie dieser
@@ -19,7 +19,7 @@ export default function DatenschutzrichtlinienPage() {
           <h2 className="title text-2xl">2. Verantwortliche Stelle</h2>
           <p className="text mt-4">
             Verantwortliche Stelle für die Datenverarbeitung im Zusammenhang mit
-            der Nutzung der Webapplikation "PraiseConnect" ist:
+            der Nutzung der Webapplikation &quot;PraiseConnect&quot; ist:
           </p>
           <p className="text mt-4">
             <Link
@@ -47,7 +47,7 @@ export default function DatenschutzrichtlinienPage() {
               <h3 className="title text-lg">3.1 Nutzerdaten</h3>
               <p className="text">
                 Bei der Registrierung und Nutzung der Webapplikation
-                "PraiseConnect" erheben wir die von Ihnen angegebenen
+                &quot;PraiseConnect&quot; erheben wir die von Ihnen angegebenen
                 personenbezogenen Daten, wie Name, Alter und optionale
                 Kontaktinformationen. Diese Daten werden zur Bereitstellung
                 unserer Dienste verwendet.

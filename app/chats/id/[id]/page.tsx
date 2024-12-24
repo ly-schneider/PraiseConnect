@@ -1,4 +1,3 @@
-import BackButton from "@/components/BackButton";
 import ChatDisplay from "@/components/ChatDisplay";
 import Spinner from "@/components/utils/Spinner";
 import { getSession } from "@/lib/Session";
@@ -53,8 +52,6 @@ export default async function ChatDetailPage({
       console.error("Fehler beim Laden der Chats");
     }
   }
-
-  console.log(chat);
 
   return (
     <div className="flex flex-col mb-32 mt-2">

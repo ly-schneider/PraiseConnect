@@ -5,7 +5,6 @@ import {
   GetParticipantThatIsNotSelf,
 } from "./utils/ChatHelpers";
 import { RenderMarkdownForPreview } from "./utils/RenderMarkdown";
-import { TextareaToReadableRemoveLineBreaks } from "./utils/TextareaToReadable";
 import { ChatDTO } from "@/model/Chat";
 
 export default function Chat({
@@ -25,11 +24,11 @@ export default function Chat({
           )}
         </p>
         <p className="text text-muted">
-          {CalcCreationDate(GetLatestMessage(chat, accountId)?.createdAt)}
+          {CalcCreationDate(GetLatestMessage(chat)?.createdAt)}
         </p>
       </div>
       <RenderMarkdownForPreview
-        content={GetLatestMessage(chat, accountId)?.content}
+        content={GetLatestMessage(chat)?.content}
       />
     </div>
   );

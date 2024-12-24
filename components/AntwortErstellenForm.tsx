@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Spinner from "./utils/Spinner";
 import { JWTPayload } from "jose";
 import {
@@ -33,8 +32,6 @@ export default function AntwortErstellenForm({
   session: { accessToken: string; user: JWTPayload } | null;
   post: PostDTO | null;
 }) {
-  const router = useRouter();
-
   const [content, setContent] = useState("");
 
   const [open, setOpen] = useState(false);
@@ -91,6 +88,7 @@ export default function AntwortErstellenForm({
         throw new Error();
       }
     } catch (error) {
+      console.error(error);
       setLoading(false);
       setErrors({
         ...errors,

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { saveSession } from "@/lib/Session";
 import { useRouter, useSearchParams } from "next/navigation";
-import BackendUrl from "./utils/BackendUrl";
 import Spinner from "./utils/Spinner";
 
 interface LoginFormErrors {
@@ -76,8 +75,6 @@ export default function LoginForm() {
 
       const data = await res.json();
 
-      console.log(data);
-
       if (data.success) {
         setLoading(false);
 
@@ -86,24 +83,33 @@ export default function LoginForm() {
           return;
         }
 
-        router.push("/entdecken");
+        router.push("/posts");
       } else {
         throw new Error(data.type);
       }
     } catch (error) {
       setLoading(false);
 
-      if (error.message === "wrong-credentials") {
+      if (error instanceof Error) {
+        if (error.message === "wrong-credentials") {
+          setErrors({
+            ...errors,
+            submit: "Die E-Mail Adresse oder das Passwort ist falsch.",
+          });
+          return;
+        }
+
         setErrors({
           ...errors,
-          submit: "Die E-Mail Adresse oder das Passwort ist falsch.",
+          submit: "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
         });
         return;
       }
 
+      // Handle non-Error cases
       setErrors({
         ...errors,
-        submit: "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+        submit: "Ein unbekannter Fehler ist aufgetreten.",
       });
       return;
     }
@@ -160,7 +166,12 @@ export default function LoginForm() {
           </div>
         </div>
         <button className="btn btn-attention w-full mt-4" type="submit">
-          <Spinner className={"fill-background transition-default " + (loading ? "mr-3" : "hidden")} />
+          <Spinner
+            className={
+              "fill-background transition-default " +
+              (loading ? "mr-3" : "hidden")
+            }
+          />
           Login
         </button>
         <p className="text mt-4">

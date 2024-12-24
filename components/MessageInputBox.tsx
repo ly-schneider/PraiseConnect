@@ -5,6 +5,7 @@ import Spinner from "./utils/Spinner";
 import { JWTPayload } from "jose";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import { ChatMessageDTO } from "@/model/Chat";
 
 interface MessageInputErrors {
   message: string;
@@ -24,8 +25,8 @@ export default function MessageInputBox({
 }: {
   session: { accessToken: string; user: JWTPayload } | null;
   chatId: string;
-  chatMessages: any;
-  setChatMessages: (messages: any) => void;
+  chatMessages: ChatMessageDTO[] | undefined;
+  setChatMessages: (messages: ChatMessageDTO[] | undefined) => void;
 }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -61,6 +62,10 @@ export default function MessageInputBox({
 
       if (!data.success) {
         throw new Error("Failed to send message");
+      }
+
+      if (!chatMessages) {
+        return;
       }
 
       setMessage("");

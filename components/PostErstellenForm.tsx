@@ -97,6 +97,7 @@ export default function PostErstellenForm({
         throw new Error();
       }
     } catch (error) {
+      console.error("Error creating post:", error);
       setLoading(false);
       setErrors({
         ...errors,

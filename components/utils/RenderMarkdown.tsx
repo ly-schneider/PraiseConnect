@@ -9,7 +9,6 @@ export default function RenderMarkdown({
 }): JSX.Element {
   return (
     <ReactMarkdown
-      children={content}
       components={{
         a: ({ href, children }) => (
           <Link href={href} className="text text-primary underline">
@@ -17,8 +16,9 @@ export default function RenderMarkdown({
           </Link>
         ),
         p: ({ children }) => <p className="text">{children}</p>,
-      }}
-    />
+      }}>
+      {content || ""}
+    </ReactMarkdown>
   );
 }
 

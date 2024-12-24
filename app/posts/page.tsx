@@ -7,7 +7,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Spinner from "@/components/utils/Spinner";
 import { getSession } from "@/lib/Session";
 import { PostDTO } from "@/model/Post";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -46,8 +45,6 @@ export default async function EntdeckenPage() {
       console.error("Fehler beim Laden der Posts");
     }
   }
-
-  console.log(posts);
 
   return (
     <div className="flex flex-col mb-32">

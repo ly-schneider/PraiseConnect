@@ -13,9 +13,14 @@ export default function NavigationLoggedIn({
     user: JWTPayload;
   };
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _session = session;
+  
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
+
+  // TODO: Implement unread chat messages badge
 
   return (
     <div className="fixed bottom-0 z-50 w-full flex flex-col justify-center items-center bg-background py-4 pt-2">

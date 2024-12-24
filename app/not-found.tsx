@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function notFoundPage() {
+export default function NotFound() {
   const router = useRouter();
 
   useEffect(() => {
