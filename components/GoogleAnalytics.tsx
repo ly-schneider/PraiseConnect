@@ -5,7 +5,7 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 
 export default function GoogleAnalytics() {
-  const gaId = "G-MP1DDV8R99";
+  const gaId = "G-Q0QVVLNFE8";
   const [showCookieConsent, setShowCookieConsent] = useState(false);
 
   useEffect(() => {
