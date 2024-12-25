@@ -1,6 +1,7 @@
 import EntdeckenButton from "@/components/EntdeckenButton";
 import FilterActivities from "@/components/FilterActivites";
 import PostsDisplay from "@/components/PostsDisplay";
+import SkeletonPostsDisplay from "@/components/skeletons/SkeletonPostsDisplay";
 import {
   Sheet,
   SheetContent,
@@ -10,39 +11,44 @@ import {
 } from "@/components/ui/sheet";
 import { getSession } from "@/lib/Session";
 import { PostDTO } from "@/model/Post";
+import { Metadata } from "next";
 import { headers } from "next/headers";
+import { Suspense } from "react";
 
-export default async function EntdeckenPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Entdecken | PraiseConnect",
+  };
+}
+
+async function fetchPosts(): Promise<PostDTO[]> {
   const headersList = await headers();
   const hostname = headersList.get("x-forwarded-host");
   const protocol = headersList.get("x-forwarded-proto");
   const url = `${protocol}://${hostname}`;
 
   const session = await getSession();
+  if (!session) return [];
 
-  let posts: PostDTO[] = [];
+  const res = await fetch(`${url}/api/posts`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  });
 
-  if (session) {
-    const res = await fetch(`${url}/api/posts`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    });
-
-    if (!res.ok || res.status !== 200) {
-      console.error("Fehler beim Laden der Posts");
-      return;
-    }
-
-    const data = await res.json();
-
-    if (data.success) {
-      posts = data.data;
-    } else {
-      console.error("Fehler beim Laden der Posts");
-    }
+  if (!res.ok || res.status !== 200) {
+    console.error("Fehler beim Laden der Posts");
+    return [];
   }
+
+  const data = await res.json();
+
+  return data.success ? data.data : [];
+}
+
+export default function EntdeckenPage() {
+  const postsPromise = fetchPosts();
 
   return (
     <div className="flex flex-col mb-32">
@@ -78,13 +84,23 @@ export default async function EntdeckenPage() {
       <div className="mt-2">
         <FilterActivities style="small" />
       </div>
-      {posts.length === 0 ? (
-        <div className="w-full flex justify-center mt-10">
-          <p className="text text-muted text-center">Keine Posts vorhanden</p>
-        </div>
-      ) : (
-        <PostsDisplay posts={posts} />
-      )}
+      <Suspense fallback={<SkeletonPostsDisplay />}>
+        <PostsContent postsPromise={postsPromise} />
+      </Suspense>
     </div>
   );
+}
+
+async function PostsContent({ postsPromise }: { postsPromise: Promise<PostDTO[]> }) {
+  const posts = await postsPromise;
+
+  if (posts.length === 0) {
+    return (
+      <div className="w-full flex justify-center mt-10">
+        <p className="text text-muted text-center">Keine Posts vorhanden</p>
+      </div>
+    );
+  }
+
+  return <PostsDisplay posts={posts} />;
 }

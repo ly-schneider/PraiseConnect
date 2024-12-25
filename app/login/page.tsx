@@ -1,6 +1,13 @@
 import LoginForm from "@/components/LoginForm";
 import Spinner from "@/components/utils/Spinner";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Login | PraiseConnect",
+  };
+}
 
 export default function LoginPage() {
   return (

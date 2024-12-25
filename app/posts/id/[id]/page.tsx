@@ -6,6 +6,13 @@ import Post from "@/components/Post";
 import AntwortErstellenForm from "@/components/AntwortErstellenForm";
 import { Suspense } from "react";
 import SkeletonPostDetail from "@/components/skeletons/SkeletonPostDetail";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Post | PraiseConnect",
+  };
+}
 
 async function fetchPostData(id: string): Promise<PostDTO | null> {
   const headersList = await headers();
@@ -52,7 +59,6 @@ export default async function PostDetailPage({
     <div className="flex flex-col mb-32 mt-2">
       <BackButton />
       <Suspense fallback={<SkeletonPostDetail />}>
-        {/* Await the post data */}
         <PostContent postPromise={postPromise} />
       </Suspense>
     </div>

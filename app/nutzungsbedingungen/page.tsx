@@ -1,4 +1,11 @@
+import { Metadata } from "next";
 import Link from "next/link";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Nutzungsbedingungen | PraiseConnect",
+  };
+}
 
 export default function NutzungsbedingungenPage() {
   return (
