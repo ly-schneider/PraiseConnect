@@ -62,8 +62,6 @@ async function ChatsContent({ chatsPromise }: { chatsPromise: Promise<ChatDTO[]>
 
   const session = await getSession();
 
-  console.log(chats)
-
   const sortedChats = chats.sort((a, b) => {
     if (a.messages === undefined || b.messages === undefined) return 0;
 

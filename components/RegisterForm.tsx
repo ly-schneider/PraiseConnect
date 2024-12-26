@@ -116,8 +116,6 @@ export default function RegisterForm({
         };
       }
 
-      console.log(body);
-
       if (account !== null && account.email !== email && session) {
         const emailCheckRes = await fetch(
           `/api/accounts/email?email=${email}`,
