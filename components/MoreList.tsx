@@ -29,10 +29,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faSliders}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Account</p>
+                <p className="text">Account</p>
               </div>
               <ChevronDown className="h-6 w-6 shrink-0 -rotate-90" />
             </div>
@@ -51,10 +51,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faRightFromBracket}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Logout</p>
+                <p className="text">Logout</p>
               </div>
               <ChevronDown className="h-6 w-6 shrink-0 -rotate-90" />
             </div>
@@ -67,10 +67,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faLightbulb}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Feedback</p>
+                <p className="text">Feedback</p>
               </div>
               <ChevronDown className="h-6 w-6 shrink-0 -rotate-90" />
             </div>
@@ -86,10 +86,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faSection}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Impressum</p>
+                <p className="text">Impressum</p>
               </div>
               <ChevronDown className="h-6 w-6 shrink-0 -rotate-90" />
             </div>
@@ -102,10 +102,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faShieldHalved}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Datenschutz</p>
+                <p className="text">Datenschutz</p>
               </div>
               <ChevronDown className="h-6 w-6 shrink-0 -rotate-90" />
             </div>
@@ -118,10 +118,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faGavel}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Nutzungsbedingungen</p>
+                <p className="text">Nutzungsbedingungen</p>
               </div>
               <ChevronDown className="h-6 w-6 shrink-0 -rotate-90" />
             </div>
@@ -140,10 +140,10 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faGithub}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">GitHub</p>
+                <p className="text">GitHub</p>
               </div>
             </div>
           </Link>
@@ -155,16 +155,16 @@ export default function MoreList() {
                 <div className="bg-primarySlanted w-10 h-10 rounded-full flex items-center justify-center text-text">
                   <FontAwesomeIcon
                     icon={faInstagram}
-                    className="text-text z-10 text-base"
+                    className="text-text z-10"
                   />
                 </div>
-                <p className="text text-base">Instagram</p>
+                <p className="text">Instagram</p>
               </div>
             </div>
           </Link>
         </li>
       </ul>
-      <p className="text text-center">
+      <p className="text text-center text-xs text-muted">
         Betrieben durch{" "}
         <Link
           target="_blank"

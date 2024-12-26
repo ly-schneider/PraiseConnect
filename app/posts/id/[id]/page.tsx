@@ -7,6 +7,8 @@ import AntwortErstellenForm from "@/components/AntwortErstellenForm";
 import { Suspense } from "react";
 import SkeletonPostDetail from "@/components/skeletons/SkeletonPostDetail";
 import { Metadata } from "next";
+import PostOptionsButton from "@/components/PostOptionsButton";
+import { JWTPayload } from "jose";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -53,11 +55,18 @@ export default async function PostDetailPage({
 }) {
   const { id } = await params;
 
+  const session = await getSession();
+
   const postPromise = fetchPostData(id);
 
   return (
     <div className="flex flex-col mb-32 mt-2">
-      <BackButton />
+      <div className="flex items-center justify-between">
+        <BackButton />
+        <Suspense>
+          <PostOptionsButtonLoader postPromise={postPromise} session={session} />
+        </Suspense>
+      </div>
       <Suspense fallback={<SkeletonPostDetail />}>
         <PostContent postPromise={postPromise} />
       </Suspense>
@@ -65,11 +74,17 @@ export default async function PostDetailPage({
   );
 }
 
-async function PostContent({ postPromise }: { postPromise: Promise<PostDTO | null> }) {
+async function PostContent({
+  postPromise,
+}: {
+  postPromise: Promise<PostDTO | null>;
+}) {
   const post = await postPromise;
 
   if (!post) {
-    return <p className="text-center text mt-8">Fehler beim Laden des Posts.</p>;
+    return (
+      <p className="text-center text mt-8">Fehler beim Laden des Posts.</p>
+    );
   }
 
   const session = await getSession();
@@ -80,4 +95,20 @@ async function PostContent({ postPromise }: { postPromise: Promise<PostDTO | nul
       <AntwortErstellenForm session={session} post={post} />
     </>
   );
+}
+
+async function PostOptionsButtonLoader({
+  postPromise,
+  session,
+}: {
+  postPromise: Promise<PostDTO | null>;
+  session: { accessToken: string; user: JWTPayload } | null;
+}) {
+  const post = await postPromise;
+
+  if (!post) {
+    return null;
+  }
+
+  return (post.account?._id === session?.user?._id) && <PostOptionsButton post={post} session={session} />;
 }

@@ -42,3 +42,47 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     );
   }
 }
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  await DBConnect();
+
+  const { id } = await params;
+
+  const jwtToken = request.headers.get("authorization");
+  const payload = await decrypt(jwtToken);
+
+  if (!payload) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
+  try {
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return NextResponse.json(
+        { success: false, message: "Post not found" },
+        { status: 404 }
+      );
+    }
+
+    if (post.account.toString() !== payload._id) {
+      return NextResponse.json(
+        { success: false, message: "Forbidden" },
+        { status: 403 }
+      );
+    }
+
+    await post.deleteOne();
+
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: "Failed to delete post with id: " + id },
+      { status: 400 }
+    );
+  }
+}
