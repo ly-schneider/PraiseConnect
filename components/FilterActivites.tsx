@@ -2,6 +2,8 @@
 
 import { Activities } from "@/utils/Activities";
 import { useActivities } from "./FilterActivitiesContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 type FilterActivitiesProps = {
   style: "big" | "small";
@@ -39,7 +41,7 @@ export default function FilterActivities({ style }: FilterActivitiesProps) {
               } py-2 px-4 text-xs`}
               onClick={() => toggleActivity(activity)}
             >
-              {activity}
+              {activity} <FontAwesomeIcon icon={faXmark} className="ms-2" />
             </button>
           </li>
         ))

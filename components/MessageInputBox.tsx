@@ -82,13 +82,13 @@ export default function MessageInputBox({
   }
 
   return (
-    <div className="fixed bottom-24 z-50 w-full max-w-md bg-background py-4">
+    <div className="fixed bottom-24 z-50 w-[calc(100%-3rem)] max-w-md bg-background py-4">
       {errors.submit && (
         <div className="rounded-[20px] bg-error px-4 py-2.5 text text-center mb-4">
           {errors.submit}
         </div>
       )}
-      <form onSubmit={handleSend} className="flex items-end gap-2 mx-6">
+      <form onSubmit={handleSend} className="flex items-end gap-2">
         <textarea
           className="flex-grow resize-none px-4 py-2 input rounded-[20px]"
           rows={3}

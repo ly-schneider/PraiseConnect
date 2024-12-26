@@ -22,20 +22,22 @@ export default function ChatDisplay({
   return (
     <>
       <div className="flex flex-col mb-32">
-        <div className="fixed top-0 bg-background w-full max-w-md pb-2 pt-5">
-          <div className="flex items-center justify-between w-full">
-            <BackButton />
-            <h1 className="title text-2xl">
-              {
-                GetParticipantThatIsNotSelf(chat, session?.user._id as string)
-                  ?.name
-              }
-              ,{" "}
-              {CalcBirthdate(
-                GetParticipantThatIsNotSelf(chat, session?.user._id as string)
-                  ?.birthdate
-              )}
-            </h1>
+        <div className="fixed top-0 z-50 text bg-background pb-2 pt-5 max-w-md w-[calc(100%-3rem)]">
+          <div className="w-full">
+            <div className="flex items-center justify-between w-full">
+              <BackButton />
+              <h1 className="title text-2xl">
+                {
+                  GetParticipantThatIsNotSelf(chat, session?.user._id as string)
+                    ?.name
+                }
+                ,{" "}
+                {CalcBirthdate(
+                  GetParticipantThatIsNotSelf(chat, session?.user._id as string)
+                    ?.birthdate
+                )}
+              </h1>
+            </div>
           </div>
         </div>
         <div className="flex-1 overflow-y-auto mt-20 space-y-4">

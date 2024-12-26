@@ -69,7 +69,7 @@ async function PostContent({ postPromise }: { postPromise: Promise<PostDTO | nul
   const post = await postPromise;
 
   if (!post) {
-    return <div className="w-full flex justify-center">Fehler beim Laden des Posts.</div>;
+    return <p className="text-center text mt-8">Fehler beim Laden des Posts.</p>;
   }
 
   const session = await getSession();
