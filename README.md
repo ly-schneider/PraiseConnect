@@ -1,3 +1,5 @@
+<div align=center><img src="https://github.com/user-attachments/assets/7b054b13-4ed1-41a2-80f9-025059753b58" style="width: 600px; height: 155px" /></div>
+
 # PraiseConnect
 
 ✨ Die Open-Source Plattform des PraiseCamps um neue Connections zu knüpfen
