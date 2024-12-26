@@ -15,10 +15,10 @@ export default function DatenschutzrichtlinienPage() {
         <div>
           <h2 className="title text-2xl">1. Einleitung</h2>
           <p className="text mt-4">
-            PraiseConnect (nachfolgend &quot;wir&quot; oder &quot;uns&quot;) nimmt den Schutz Ihrer
-            persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen
-            Daten vertraulich und entsprechend den gesetzlichen
-            Datenschutzvorschriften der Schweiz sowie dieser
+            PraiseConnect (nachfolgend &quot;wir&quot; oder &quot;uns&quot;)
+            nimmt den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln
+            Ihre personenbezogenen Daten vertraulich und entsprechend den
+            gesetzlichen Datenschutzvorschriften der Schweiz sowie dieser
             Datenschutzrichtlinien.
           </p>
         </div>
@@ -61,7 +61,16 @@ export default function DatenschutzrichtlinienPage() {
               </p>
             </li>
             <li>
-              <h3 className="title text-lg">3.2 Analysedaten</h3>
+              <h3 className="title text-lg">3.2 Chat-Daten</h3>
+              <p className="text">
+                Bitte beachten Sie, dass Nachrichten und Inhalte, die über
+                unsere Chat-Funktion ausgetauscht werden, nicht Ende-zu-Ende
+                verschlüsselt sind. Wir empfehlen daher, keine sensiblen
+                persönlichen Informationen über den Chat auszutauschen.
+              </p>
+            </li>
+            <li>
+              <h3 className="title text-lg">3.3 Analysedaten</h3>
               <p className="text">
                 Zur Verbesserung unserer Dienste analysieren wir anonymisierte
                 Nutzungsdaten. Es werden keine Tools von Drittanbietern wie
@@ -73,9 +82,12 @@ export default function DatenschutzrichtlinienPage() {
         <div>
           <h2 className="title text-2xl">4. Datensicherheit</h2>
           <p className="text mt-4">
-            Wir ergreifen angemessene technische und organisatorische Massnahmen,
-            um Ihre Daten vor unberechtigtem Zugriff, Verlust, Missbrauch oder
-            Zerstörung zu schützen.
+            Wir ergreifen angemessene technische und organisatorische
+            Massnahmen, um Ihre Daten vor unberechtigtem Zugriff, Verlust,
+            Missbrauch oder Zerstörung zu schützen. Bitte beachten Sie jedoch,
+            dass die Chat-Funktion nicht Ende-zu-Ende verschlüsselt ist, wodurch
+            ein gewisses Restrisiko bei der Übertragung von Informationen
+            besteht.
           </p>
         </div>
         <div>
