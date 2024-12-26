@@ -1,6 +1,6 @@
 import Mailgun from "mailgun.js";
 
-interface MailgunClientConfig {
+export interface MailgunClientConfig {
   domain: string;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error

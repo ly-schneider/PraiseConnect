@@ -65,13 +65,15 @@ export default function PostErstellenForm({
       errors.content = "Bitte gib eine Nachricht ein.";
     }
 
-    Object.keys(errors).forEach((key) => {
-      if (errors[key as keyof PostErstellenFormErrors]) {
-        setLoading(false);
-        setErrors(errors);
-        return;
-      }
-    });
+    const hasErrors = Object.keys(errors).some(
+      (key) => errors[key as keyof PostErstellenFormErrors]
+    );
+
+    if (hasErrors) {
+      setLoading(false);
+      setErrors(errors);
+      return;
+    }
 
     try {
       const body: PostDTO = {

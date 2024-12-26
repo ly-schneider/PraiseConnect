@@ -87,13 +87,15 @@ export default function RegisterForm({
         "Bitte akzeptiere die Nutzungsbedingungen und Datenschutzrichtlinien.";
     }
 
-    Object.keys(errors).forEach((key) => {
-      if (errors[key as keyof RegigsterFormErrors]) {
-        setLoading(false);
-        setErrors(errors);
-        return;
-      }
-    });
+    const hasErrors = Object.keys(errors).some(
+      (key) => errors[key as keyof RegigsterFormErrors]
+    );
+
+    if (hasErrors) {
+      setLoading(false);
+      setErrors(errors);
+      return;
+    }
 
     try {
       let body: AccountDTO;
@@ -210,6 +212,7 @@ export default function RegisterForm({
               E-Mail Adresse:
             </label>
             <input
+              autoComplete="email"
               type="email"
               id="email"
               className="input"
@@ -227,6 +230,7 @@ export default function RegisterForm({
                 Passwort
               </label>
               <input
+                autoComplete="new-password"
                 type="password"
                 id="password"
                 className="input"
@@ -244,6 +248,7 @@ export default function RegisterForm({
               Name:
             </label>
             <input
+              autoComplete="given-name"
               type="text"
               id="name"
               className="input"
@@ -260,6 +265,7 @@ export default function RegisterForm({
               Geburtsdatum:
             </label>
             <input
+              autoComplete="bday"
               type="date"
               id="birthdate"
               className="input"

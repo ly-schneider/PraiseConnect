@@ -48,13 +48,15 @@ export default function LoginForm() {
       errors.password = "Bitte gib dein Passwort ein.";
     }
 
-    Object.keys(errors).forEach((key) => {
-      if (errors[key as keyof LoginFormErrors]) {
-        setLoading(false);
-        setErrors(errors);
-        return;
-      }
-    });
+    const hasErrors = Object.keys(errors).some(
+      (key) => errors[key as keyof LoginFormErrors]
+    );
+
+    if (hasErrors) {
+      setLoading(false);
+      setErrors(errors);
+      return;
+    }
 
     try {
       const body = {
@@ -129,6 +131,7 @@ export default function LoginForm() {
               E-Mail Adresse:
             </label>
             <input
+              autoComplete="email"
               type="email"
               id="email"
               className="input"
@@ -145,6 +148,7 @@ export default function LoginForm() {
               Passwort
             </label>
             <input
+              autoComplete="current-password"
               type="password"
               id="password"
               className="input"
