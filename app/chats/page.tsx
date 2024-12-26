@@ -62,9 +62,20 @@ async function ChatsContent({ chatsPromise }: { chatsPromise: Promise<ChatDTO[]>
 
   const session = await getSession();
 
+  console.log(chats)
+
+  const sortedChats = chats.sort((a, b) => {
+    if (a.messages === undefined || b.messages === undefined) return 0;
+
+    const latestMessageA = a.messages[a.messages.length - 1]?.createdAt || 0;
+    const latestMessageB = b.messages[b.messages.length - 1]?.createdAt || 0;
+
+    return new Date(latestMessageB).getTime() - new Date(latestMessageA).getTime();
+  });
+
   return (
     <>
-      {chats.map((chat) => (
+      {sortedChats.map((chat) => (
         <Link key={chat._id} href={`/chats/id/${chat._id}`}>
           <Chat chat={chat} accountId={session?.user._id as string} />
         </Link>

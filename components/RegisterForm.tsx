@@ -70,7 +70,7 @@ export default function RegisterForm({
       errors.email = "Bitte gib deine E-Mail Adresse ein.";
     }
 
-    if (account !== null && !password) {
+    if (account === null && !password) {
       errors.password = "Bitte gib dein Passwort ein.";
     }
 
@@ -115,6 +115,8 @@ export default function RegisterForm({
           birthdate: new Date(birthdate),
         };
       }
+
+      console.log(body);
 
       if (account !== null && account.email !== email && session) {
         const emailCheckRes = await fetch(

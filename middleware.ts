@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSession } from "./lib/Session";
 
-const blacklistPathsUnauthenticated: string[] = ["/entdecken"];
-const blacklistPathsUnauthenticatedRegex = /^\/(?!chats|post).*$/;
-const blacklistPathsAuthenticated: string[] = ["/login", "/registrieren"];
+const blacklistPathsUnauthenticatedRegex = /^\/(?!chats|posts|mehr).*$/;
+const blacklistPathsAuthenticated: string[] = ["/login", "/registrieren", "/passwort-vergessen", "/passwort-reset"];
 
 export async function middleware(
   request: Request
@@ -25,7 +24,6 @@ export async function middleware(
     }
   } else {
     if (
-      blacklistPathsUnauthenticated.includes(pathname) ||
       !blacklistPathsUnauthenticatedRegex.test(pathname)
     ) {
       return NextResponse.redirect(new URL("/login", request.url));
