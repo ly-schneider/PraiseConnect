@@ -14,7 +14,7 @@ export default function RegistrierenPage() {
     <div className="flex flex-col mb-32 mt-12">
       <h1 className="title text-4xl">Registrieren</h1>
       <Suspense fallback={<Spinner className="fill-background h-8 w-8" />}>
-        <RegisterForm />
+        <RegisterForm account={null} session={null} />
       </Suspense>
     </div>
   );

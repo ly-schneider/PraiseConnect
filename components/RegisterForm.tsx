@@ -29,8 +29,8 @@ const initialErrors: RegigsterFormErrors = {
 };
 
 export default function RegisterForm({
-  account = null,
-  session = null,
+  account,
+  session,
 }: {
   account: AccountDTO | null;
   session: { accessToken: string; user: JWTPayload } | null;
